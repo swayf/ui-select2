@@ -180,6 +180,11 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
           elm.select2("destroy");
         });
 
+        // HACK: return focus after selection
+        elm.on("change", function () {
+          elm.parent().find('input')[0].focus();
+        });
+
         attrs.$observe('disabled', function (value) {
           elm.select2('enable', !value);
         });
@@ -195,7 +200,7 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
           });
         }
 
-        // moved here to avoid flickering.. seems nothing broken else 
+        // moved here to avoid DOM flicker.. seems nothing broken else 
         elm.select2(opts);
 
         $timeout(function () {
