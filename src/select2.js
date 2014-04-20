@@ -195,9 +195,10 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
           });
         }
 
-        // Initialize the plugin late so that the injected DOM does not disrupt the template compiler
+        // moved here to avoid flickering.. seems nothing broken else 
+        elm.select2(opts);
+
         $timeout(function () {
-          elm.select2(opts);
 
           // Set initial value - I'm not sure about this but it seems to need to be there
           elm.select2('data', controller.$modelValue);
